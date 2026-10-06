@@ -7,115 +7,676 @@
   <meta name="description" content="One Virus cybersecurity learning and defensive security workspace.">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  <div class="app-shell">
-    <aside class="sidebar">
-      <div class="brand"><span class="brand-mark">OV</span><span>ONE VIRUS</span></div>
-      <div class="user-card"><div class="avatar">OV</div><div><b>Guest User</b><small>Web Workspace</small></div></div>
-      <nav id="nav">
-        <button class="nav-item active" data-section="dashboard">⌂ <span>Dashboard</span></button>
-        <button class="nav-item" data-section="network">◎ <span>Network</span></button>
-        <button class="nav-item" data-section="bugbounty">⌁ <span>Bug Bounty</span></button>
-        <button class="nav-item" data-section="defense">◈ <span>Defense</span></button>
-        <button class="nav-item" data-section="codelab">▣ <span>Code Lab</span></button>
-        <button class="nav-item" data-section="learning">◆ <span>Learning</span></button>
-        <button class="nav-item" data-section="tools">⚙ <span>Tools</span></button>
-      </nav>
-      <div class="side-footer"><span class="status-dot"></span> System online</div>
-    </aside>
+<div class="app-shell">
 
-    <main class="main">
-      <header class="topbar">
-        <div><div class="eyebrow">LEARN • PRACTICE • DEFEND</div><h1 id="page-title">Security Dashboard</h1></div>
-        <div class="top-actions"><span class="pill">WEB EDITION</span><button class="icon-btn" id="themeBtn" title="Toggle glow">◐</button></div>
-      </header>
+  <aside class="sidebar">
 
-      <section id="dashboard" class="section active">
-        <div class="hero">
-          <div><span class="tag">ONE VIRUS // CYBER LAB</span><h2>Your security workspace.</h2><p>Learn networking, practice defensive techniques, analyze security data and build safer applications — from one dashboard.</p>
-            <div class="hero-actions"><button class="primary" data-go="learning">Start Learning</button><button class="secondary" data-go="tools">Explore Tools</button></div>
+    <div class="brand">
+      <span class="brand-mark">OV</span>
+      <span>ONE VIRUS</span>
+    </div>
+
+    <div class="user-card">
+      <div class="avatar" id="user-avatar">OV</div>
+      <div>
+        <b id="user-name">Guest User</b>
+        <small id="user-role">Web Workspace</small>
+      </div>
+    </div>
+
+    <nav id="nav">
+      <button class="nav-item active" data-section="dashboard">⌂ <span>Dashboard</span></button>
+      <button class="nav-item" data-section="network">◎ <span>Network</span></button>
+      <button class="nav-item" data-section="bugbounty">⌁ <span>Bug Bounty</span></button>
+      <button class="nav-item" data-section="defense">◈ <span>Defense</span></button>
+      <button class="nav-item" data-section="codelab">▣ <span>Code Lab</span></button>
+      <button class="nav-item" data-section="learning">◆ <span>Learning</span></button>
+      <button class="nav-item" data-section="tools">⚙ <span>Tools</span></button>
+    </nav>
+
+    <div class="side-footer">
+      <span class="status-dot" id="backend-dot"></span>
+      <span id="backend-status">Checking backend...</span>
+    </div>
+
+  </aside>
+
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <div>
+        <div class="eyebrow">LEARN • PRACTICE • DEFEND</div>
+        <h1 id="page-title">Security Dashboard</h1>
+      </div>
+
+      <div class="top-actions">
+        <button class="pill" id="loginBtn" type="button">LOGIN</button>
+        <span class="pill">WEB EDITION</span>
+        <button class="icon-btn" id="themeBtn" title="Toggle glow">◐</button>
+      </div>
+
+    </header>
+
+
+    <!-- DASHBOARD -->
+
+    <section id="dashboard" class="section active">
+
+      <div class="hero">
+
+        <div>
+          <span class="tag">ONE VIRUS // CYBER LAB</span>
+
+          <h2>Your security workspace.</h2>
+
+          <p>
+            Learn networking, practice defensive techniques,
+            analyze security data and build safer applications —
+            from one dashboard.
+          </p>
+
+          <div class="hero-actions">
+            <button class="primary" data-go="learning">
+              Start Learning
+            </button>
+
+            <button class="secondary" data-go="tools">
+              Explore Tools
+            </button>
           </div>
-          <div class="orb"><span>OV</span></div>
+
         </div>
-        <div class="stats">
-          <div class="stat"><small>MODULES</small><b>07</b><span>Core areas</span></div>
-          <div class="stat"><small>LABS</small><b>12</b><span>Practice spaces</span></div>
-          <div class="stat"><small>TOOLS</small><b>24</b><span>Planned toolkit</span></div>
-          <div class="stat"><small>STATUS</small><b>ON</b><span>Workspace ready</span></div>
+
+        <div class="orb">
+          <span>OV</span>
         </div>
-        <div class="grid-2">
-          <div class="panel"><div class="panel-head"><h3>Quick access</h3><span>01</span></div>
-            <div class="quick-grid">
-              <button data-go="network"><b>Network</b><small>IP, DNS, headers & analysis</small></button>
-              <button data-go="bugbounty"><b>Bug Bounty</b><small>Authorized reconnaissance labs</small></button>
-              <button data-go="defense"><b>Defense</b><small>IOC, hashes & log analysis</small></button>
-              <button data-go="codelab"><b>Code Lab</b><small>Python, PHP & SQL practice</small></button>
-            </div>
+
+      </div>
+
+
+      <div class="stats">
+
+        <div class="stat">
+          <small>MODULES</small>
+          <b>07</b>
+          <span>Core areas</span>
+        </div>
+
+        <div class="stat">
+          <small>LABS</small>
+          <b>12</b>
+          <span>Practice spaces</span>
+        </div>
+
+        <div class="stat">
+          <small>TOOLS</small>
+          <b>24</b>
+          <span>Planned toolkit</span>
+        </div>
+
+        <div class="stat">
+          <small>STATUS</small>
+          <b id="dashboard-status">ON</b>
+          <span>Workspace ready</span>
+        </div>
+
+      </div>
+
+
+      <div class="grid-2">
+
+        <div class="panel">
+
+          <div class="panel-head">
+            <h3>Quick access</h3>
+            <span>01</span>
           </div>
-          <div class="panel"><div class="panel-head"><h3>Activity</h3><span>LIVE</span></div>
-            <div class="activity"><p><i></i> Workspace initialized</p><p><i></i> Security modules loaded</p><p><i></i> Web interface ready</p><p><i></i> Backend connection: pending</p></div>
+
+          <div class="quick-grid">
+
+            <button data-go="network">
+              <b>Network</b>
+              <small>IP, DNS, headers & analysis</small>
+            </button>
+
+            <button data-go="bugbounty">
+              <b>Bug Bounty</b>
+              <small>Authorized reconnaissance labs</small>
+            </button>
+
+            <button data-go="defense">
+              <b>Defense</b>
+              <small>IOC, hashes & log analysis</small>
+            </button>
+
+            <button data-go="codelab">
+              <b>Code Lab</b>
+              <small>Python, PHP & SQL practice</small>
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="panel">
+
+          <div class="panel-head">
+            <h3>Activity</h3>
+            <span>LIVE</span>
+          </div>
+
+          <div class="activity" id="activity-list">
+
+            <p><i></i> Workspace initialized</p>
+            <p><i></i> Security modules loaded</p>
+            <p><i></i> Web interface ready</p>
+            <p><i></i> Backend connection: checking...</p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- NETWORK -->
+
+    <section id="network" class="section">
+
+      <div class="section-intro">
+        <span class="tag">NETWORK</span>
+        <h2>Network Intelligence</h2>
+        <p>
+          Safe analysis tools for assets you own
+          or are authorized to assess.
+        </p>
+      </div>
+
+
+      <div class="tool-grid">
+
+
+        <div class="tool-card">
+
+          <b>IP / Domain Info</b>
+
+          <p>
+            Analyze an IP or domain through the connected backend.
+          </p>
+
+          <input
+            id="ipTarget"
+            placeholder="example.com or 8.8.8.8"
+          >
+
+          <button
+            id="ipAnalyzeBtn"
+            class="primary small"
+            type="button"
+          >
+            Analyze
+          </button>
+
+          <pre id="ipResult" class="result-box">Ready.</pre>
+
+        </div>
+
+
+        <div class="tool-card">
+
+          <b>DNS Records</b>
+
+          <p>
+            Inspect common DNS records through an authorized resolver.
+          </p>
+
+          <input
+            id="dnsTarget"
+            placeholder="domain.com"
+          >
+
+          <button
+            id="dnsLookupBtn"
+            class="primary small"
+            type="button"
+          >
+            Lookup
+          </button>
+
+          <pre id="dnsResult" class="result-box">Ready.</pre>
+
+        </div>
+
+
+        <div class="tool-card">
+
+          <b>HTTP Headers</b>
+
+          <p>
+            Review security-related response headers.
+          </p>
+
+          <input
+            id="headersTarget"
+            placeholder="https://example.com"
+          >
+
+          <button
+            id="headersInspectBtn"
+            class="primary small"
+            type="button"
+          >
+            Inspect
+          </button>
+
+          <pre id="headersResult" class="result-box">Ready.</pre>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- BUG BOUNTY -->
+
+    <section id="bugbounty" class="section">
+
+      <div class="section-intro">
+        <span class="tag">BUG BOUNTY</span>
+        <h2>Authorized Security Lab</h2>
+
+        <p>
+          Use only against targets where you have explicit permission.
+        </p>
+      </div>
+
+      <div class="warning">
+        ⚠ Authorized targets only.
+        This workspace is designed for learning and defensive testing.
+      </div>
+
+      <div class="tool-grid">
+
+        <div class="tool-card">
+          <b>Recon Checklist</b>
+          <p>Scope, DNS, assets, technologies and notes.</p>
+          <button class="secondary small" type="button">
+            Open Lab
+          </button>
+        </div>
+
+        <div class="tool-card">
+          <b>Security Headers</b>
+          <p>
+            Check common web security headers on an authorized URL.
+          </p>
+          <button
+            class="secondary small"
+            type="button"
+            data-go="network"
+          >
+            Open Lab
+          </button>
+        </div>
+
+        <div class="tool-card">
+          <b>Finding Tracker</b>
+          <p>
+            Record severity, evidence and remediation.
+          </p>
+          <button class="secondary small" type="button">
+            Open Tracker
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- DEFENSE -->
+
+    <section id="defense" class="section">
+
+      <div class="section-intro">
+
+        <span class="tag">DEFENSE</span>
+
+        <h2>Defensive Security</h2>
+
+        <p>
+          Analyze indicators and improve security posture.
+        </p>
+
+      </div>
+
+
+      <div class="tool-grid">
+
+
+        <div class="tool-card">
+
+          <b>Hash Analyzer</b>
+
+          <p>
+            Identify a hash format through the backend.
+          </p>
+
+          <input
+            id="hashInput"
+            placeholder="Paste hash"
+          >
+
+          <button
+            id="hashAnalyzeBtn"
+            class="primary small"
+            type="button"
+          >
+            Analyze
+          </button>
+
+          <pre id="hashResult" class="result-box">Ready.</pre>
+
+        </div>
+
+
+        <div class="tool-card">
+
+          <b>IOC Workspace</b>
+
+          <p>
+            Organize indicators such as domains,
+            IPs and file hashes.
+          </p>
+
+          <button class="secondary small" type="button">
+            Open Workspace
+          </button>
+
+        </div>
+
+
+        <div class="tool-card">
+
+          <b>Log Analyzer</b>
+
+          <p>
+            Analyze pasted security-event logs.
+          </p>
+
+          <textarea
+            id="logsInput"
+            rows="5"
+            placeholder="Paste authorized log data here"
+          ></textarea>
+
+          <button
+            id="logsAnalyzeBtn"
+            class="primary small"
+            type="button"
+          >
+            Analyze Logs
+          </button>
+
+          <pre id="logsResult" class="result-box">Ready.</pre>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CODE LAB -->
+
+    <section id="codelab" class="section">
+
+      <div class="section-intro">
+
+        <span class="tag">CODE LAB</span>
+
+        <h2>Practice Coding</h2>
+
+        <p>
+          Build security automation and learn secure programming.
+        </p>
+
+      </div>
+
+      <div class="code-panel">
+
+        <div class="tabs">
+
+          <button class="tab active" type="button">
+            Python
+          </button>
+
+          <button class="tab" type="button">
+            PHP
+          </button>
+
+          <button class="tab" type="button">
+            SQL
+          </button>
+
+        </div>
+
+        <textarea spellcheck="false"># One Virus Code Lab
+print("Hello from One Virus")</textarea>
+
+        <div class="code-actions">
+
+          <button class="primary small" type="button">
+            Run in Lab
+          </button>
+
+          <button class="secondary small" type="button">
+            Save
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- LEARNING -->
+
+    <section id="learning" class="section">
+
+      <div class="section-intro">
+
+        <span class="tag">LEARNING</span>
+
+        <h2>Learning Paths</h2>
+
+        <p>
+          Progress from fundamentals to practical defensive security.
+        </p>
+
+      </div>
+
+
+      <div class="courses">
+
+        <div>
+          <span>01</span>
+          <b>Networking Fundamentals</b>
+          <p>
+            IP, TCP/IP, DNS, HTTP and troubleshooting.
+          </p>
+          <div class="progress">
+            <i style="width:28%"></i>
           </div>
         </div>
-      </section>
 
-      <section id="network" class="section">
-        <div class="section-intro"><span class="tag">NETWORK</span><h2>Network Intelligence</h2><p>Safe analysis tools for assets you own or are authorized to assess.</p></div>
-        <div class="tool-grid">
-          <div class="tool-card"><b>IP / Domain Info</b><p>Analyze an IP or domain through the connected backend.</p><input placeholder="example.com or 8.8.8.8"><button class="primary small">Analyze</button></div>
-          <div class="tool-card"><b>DNS Records</b><p>Inspect common DNS records through an authorized resolver.</p><input placeholder="domain.com"><button class="primary small">Lookup</button></div>
-          <div class="tool-card"><b>HTTP Headers</b><p>Review security-related response headers.</p><input placeholder="https://example.com"><button class="primary small">Inspect</button></div>
+        <div>
+          <span>02</span>
+          <b>Web Security</b>
+          <p>
+            Authentication, sessions, input validation and secure headers.
+          </p>
+          <div class="progress">
+            <i style="width:12%"></i>
+          </div>
         </div>
-      </section>
 
-      <section id="bugbounty" class="section">
-        <div class="section-intro"><span class="tag">BUG BOUNTY</span><h2>Authorized Security Lab</h2><p>Use only against targets where you have explicit permission.</p></div>
-        <div class="warning">⚠ Authorized targets only. This workspace is designed for learning and defensive testing.</div>
-        <div class="tool-grid">
-          <div class="tool-card"><b>Recon Checklist</b><p>Scope, DNS, assets, technologies and notes.</p><button class="secondary small">Open Lab</button></div>
-          <div class="tool-card"><b>Security Headers</b><p>Check common web security headers on an authorized URL.</p><button class="secondary small">Open Lab</button></div>
-          <div class="tool-card"><b>Finding Tracker</b><p>Record severity, evidence and remediation.</p><button class="secondary small">Open Tracker</button></div>
+        <div>
+          <span>03</span>
+          <b>Defensive Security</b>
+          <p>
+            Logs, indicators, monitoring and incident response.
+          </p>
+          <div class="progress">
+            <i style="width:5%"></i>
+          </div>
         </div>
-      </section>
 
-      <section id="defense" class="section">
-        <div class="section-intro"><span class="tag">DEFENSE</span><h2>Defensive Security</h2><p>Analyze indicators and improve security posture.</p></div>
-        <div class="tool-grid">
-          <div class="tool-card"><b>Hash Analyzer</b><p>Identify and compare hashes locally or through the backend.</p><input placeholder="Paste hash"><button class="primary small">Analyze</button></div>
-          <div class="tool-card"><b>IOC Workspace</b><p>Organize indicators such as domains, IPs and file hashes.</p><button class="secondary small">Open Workspace</button></div>
-          <div class="tool-card"><b>Log Analyzer</b><p>Prepare structured security-event analysis.</p><button class="secondary small">Open Analyzer</button></div>
+      </div>
+
+    </section>
+
+
+    <!-- TOOLS -->
+
+    <section id="tools" class="section">
+
+      <div class="section-intro">
+
+        <span class="tag">TOOLKIT</span>
+
+        <h2>Security Toolkit</h2>
+
+        <p>
+          A central home for safe analysis and learning utilities.
+        </p>
+
+      </div>
+
+
+      <div class="tool-list">
+
+        <div>
+          <b>Network Utilities</b>
+          <span>DNS • IP • HTTP</span>
         </div>
-      </section>
 
-      <section id="codelab" class="section">
-        <div class="section-intro"><span class="tag">CODE LAB</span><h2>Practice Coding</h2><p>Build security automation and learn secure programming.</p></div>
-        <div class="code-panel"><div class="tabs"><button class="tab active">Python</button><button class="tab">PHP</button><button class="tab">SQL</button></div><textarea spellcheck="false"># One Virus Code Lab
-print("Hello from One Virus")</textarea><div class="code-actions"><button class="primary small">Run in Lab</button><button class="secondary small">Save</button></div></div>
-      </section>
-
-      <section id="learning" class="section">
-        <div class="section-intro"><span class="tag">LEARNING</span><h2>Learning Paths</h2><p>Progress from fundamentals to practical defensive security.</p></div>
-        <div class="courses">
-          <div><span>01</span><b>Networking Fundamentals</b><p>IP, TCP/IP, DNS, HTTP and troubleshooting.</p><div class="progress"><i style="width:28%"></i></div></div>
-          <div><span>02</span><b>Web Security</b><p>Authentication, sessions, input validation and secure headers.</p><div class="progress"><i style="width:12%"></i></div></div>
-          <div><span>03</span><b>Defensive Security</b><p>Logs, indicators, monitoring and incident response.</p><div class="progress"><i style="width:5%"></i></div></div>
+        <div>
+          <b>Web Defense</b>
+          <span>Headers • Cookies • TLS</span>
         </div>
-      </section>
 
-      <section id="tools" class="section">
-        <div class="section-intro"><span class="tag">TOOLKIT</span><h2>Security Toolkit</h2><p>A central home for safe analysis and learning utilities.</p></div>
-        <div class="tool-list">
-          <div><b>Network Utilities</b><span>DNS • IP • HTTP</span></div>
-          <div><b>Web Defense</b><span>Headers • Cookies • TLS</span></div>
-          <div><b>Data Analysis</b><span>Hashes • IOC • Logs</span></div>
-          <div><b>Developer Lab</b><span>Python • PHP • SQL</span></div>
-          <div><b>Knowledge Base</b><span>Guides • Checklists • Notes</span></div>
-          <div><b>Admin Console</b><span>Users • Activity • Settings</span></div>
+        <div>
+          <b>Data Analysis</b>
+          <span>Hashes • IOC • Logs</span>
         </div>
-      </section>
 
-      <footer>ONE VIRUS <span>•</span> Web Security Workspace <span>•</span> Authorized use only</footer>
-    </main>
+        <div>
+          <b>Developer Lab</b>
+          <span>Python • PHP • SQL</span>
+        </div>
+
+        <div>
+          <b>Knowledge Base</b>
+          <span>Guides • Checklists • Notes</span>
+        </div>
+
+        <div>
+          <b>Admin Console</b>
+          <span>Users • Activity • Settings</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <footer>
+      ONE VIRUS
+      <span>•</span>
+      Web Security Workspace
+      <span>•</span>
+      Authorized use only
+    </footer>
+
+  </main>
+</div>
+
+
+<!-- LOGIN -->
+
+<div id="loginModal" class="modal" hidden>
+
+  <div class="modal-card">
+
+    <button
+      id="closeLoginBtn"
+      class="modal-close"
+      type="button"
+    >
+      ×
+    </button>
+
+    <span class="tag">ONE VIRUS AUTH</span>
+
+    <h2>Login</h2>
+
+    <p>
+      Sign in to your One Virus workspace.
+    </p>
+
+    <input
+      id="loginUsername"
+      autocomplete="username"
+      placeholder="Username"
+    >
+
+    <input
+      id="loginPassword"
+      autocomplete="current-password"
+      type="password"
+      placeholder="Password"
+    >
+
+    <button
+      id="submitLoginBtn"
+      class="primary"
+      type="button"
+    >
+      Sign in
+    </button>
+
+    <button
+      id="logoutBtn"
+      class="secondary"
+      type="button"
+      hidden
+    >
+      Logout
+    </button>
+
+    <div
+      id="loginMessage"
+      class="result-box"
+    >
+      Not signed in.
+    </div>
+
   </div>
-  <script src="app.js"></script>
+
+</div>
+
+
+<script src="app.js"></script>
+
 </body>
 </html>
