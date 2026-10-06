@@ -1,13 +1,10 @@
 /* =========================================================
-   ONE VIRUS - FRONTEND ENGINE
-   Virus AI + Security Toolkit + Network + Code Runner
+   ONE VIRUS
+   Frontend Application
+   Virus AI + Code Runner + Security Toolkit + Network
    ========================================================= */
 
 const API_BASE = "https://one-virus-website-production.up.railway.app";
-
-/* =========================
-   BASIC NAVIGATION
-   ========================= */
 
 const titleMap = {
   dashboard: "Security Dashboard",
@@ -19,22 +16,34 @@ const titleMap = {
   tools: "Security Toolkit"
 };
 
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
 function showSection(id) {
   document.querySelectorAll(".section").forEach(section => {
     section.classList.toggle("active", section.id === id);
   });
 
   document.querySelectorAll(".nav-item").forEach(button => {
-    button.classList.toggle("active", button.dataset.section === id);
+    button.classList.toggle(
+      "active",
+      button.dataset.section === id
+    );
   });
 
-  const title = document.getElementById("page-title");
-  if (title) {
-    title.textContent = titleMap[id] || "One Virus";
+  const pageTitle = document.getElementById("page-title");
+
+  if (pageTitle) {
+    pageTitle.textContent = titleMap[id] || "One Virus";
   }
 
   history.replaceState(null, "", "#" + id);
-  window.scrollTo({ top: 0, behavior: "smooth" });
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
 document.querySelectorAll("[data-section]").forEach(button => {
@@ -49,6 +58,10 @@ document.querySelectorAll("[data-go]").forEach(button => {
   });
 });
 
+/* =========================================================
+   THEME
+   ========================================================= */
+
 const themeBtn = document.getElementById("themeBtn");
 
 if (themeBtn) {
@@ -57,27 +70,33 @@ if (themeBtn) {
   });
 }
 
+/* =========================================================
+   TABS
+   ========================================================= */
+
 document.querySelectorAll(".tab").forEach(tab => {
   tab.addEventListener("click", () => {
-    document.querySelectorAll(".tab").forEach(x => {
-      x.classList.remove("active");
+    document.querySelectorAll(".tab").forEach(item => {
+      item.classList.remove("active");
     });
 
     tab.classList.add("active");
   });
 });
 
-/* =========================
-   API HELPER
-   ========================= */
+/* =========================================================
+   API
+   ========================================================= */
 
 async function apiRequest(endpoint, options = {}) {
   const response = await fetch(API_BASE + endpoint, {
     credentials: "include",
+
     headers: {
       "Content-Type": "application/json",
       ...(options.headers || {})
     },
+
     ...options
   });
 
@@ -90,15 +109,17 @@ async function apiRequest(endpoint, options = {}) {
   }
 
   if (!response.ok) {
-    throw new Error(data.detail || `HTTP ${response.status}`);
+    throw new Error(
+      data.detail || `HTTP ${response.status}`
+    );
   }
 
   return data;
 }
 
-/* =========================
+/* =========================================================
    BACKEND STATUS
-   ========================= */
+   ========================================================= */
 
 async function checkBackend() {
   const status =
@@ -110,17 +131,20 @@ async function checkBackend() {
   try {
     const data = await apiRequest("/api/health");
 
-    status.textContent = data.status
-      ? `Backend: ${data.status}`
-      : "Backend: Online";
+    status.textContent =
+      data.status
+        ? `Backend: ${data.status}`
+        : "Backend: Online";
 
-    status.classList.add("online");
     status.classList.remove("offline");
+    status.classList.add("online");
+
   } catch {
+
     status.textContent = "Backend: Offline";
 
-    status.classList.add("offline");
     status.classList.remove("online");
+    status.classList.add("offline");
   }
 }
 
@@ -133,7 +157,9 @@ function createVirusAI() {
 
   if (!section) return;
 
-  if (document.getElementById("virus-ai-container")) return;
+  if (document.getElementById("virus-ai-container")) {
+    return;
+  }
 
   const wrapper = document.createElement("div");
 
@@ -143,8 +169,12 @@ function createVirusAI() {
     <div class="ov-ai-panel">
 
       <div class="ov-ai-header">
+
         <div>
-          <div class="ov-ai-title">☣ Virus AI</div>
+          <div class="ov-ai-title">
+            ☣ Virus AI
+          </div>
+
           <div class="ov-ai-subtitle">
             Programming & Defensive Cybersecurity Assistant
           </div>
@@ -153,46 +183,58 @@ function createVirusAI() {
         <div class="ov-ai-status">
           ● READY
         </div>
+
       </div>
 
-      <div id="virus-ai-messages" class="ov-ai-messages">
+      <div id="virus-ai-messages"
+           class="ov-ai-messages">
+
         <div class="ov-ai-message ai">
-          <strong>Virus AI</strong>
+
+          <strong>VIRUS AI</strong>
+
           <p>
-            أهلاً بيك. أنا Virus AI.
-            اسألني عن Python أو JavaScript أو البرمجة
-            أو تحليل الأخطاء أو الأمن السيبراني الدفاعي.
+            Hello! I'm Virus AI.
+            I can help with programming,
+            debugging, secure coding,
+            networking and defensive cybersecurity.
           </p>
+
         </div>
+
       </div>
 
       <div class="ov-ai-tools">
-        <button data-ai-prompt="اشرح لي هذا الكود">
+
+        <button data-ai-prompt="Explain this code">
           Explain Code
         </button>
 
-        <button data-ai-prompt="ساعدني أصلح الخطأ الموجود في الكود">
+        <button data-ai-prompt="Help me fix this error">
           Fix Error
         </button>
 
-        <button data-ai-prompt="راجع الكود من ناحية الأمان">
+        <button data-ai-prompt="Review this code for security issues">
           Security Review
         </button>
 
-        <button data-ai-prompt="علمني Python من البداية">
+        <button data-ai-prompt="Teach me Python from the beginning">
           Learn Python
         </button>
+
       </div>
 
       <div class="ov-ai-input-row">
+
         <textarea
           id="virus-ai-input"
-          placeholder="اكتب سؤالك لـ Virus AI..."
+          placeholder="Ask Virus AI anything..."
         ></textarea>
 
         <button id="virus-ai-send">
           SEND
         </button>
+
       </div>
 
     </div>
@@ -200,54 +242,114 @@ function createVirusAI() {
 
   section.prepend(wrapper);
 
-  document.querySelectorAll("[data-ai-prompt]").forEach(button => {
-    button.addEventListener("click", () => {
-      const input = document.getElementById("virus-ai-input");
+  document
+    .querySelectorAll("[data-ai-prompt]")
+    .forEach(button => {
 
-      if (!input) return;
+      button.addEventListener("click", () => {
 
-      input.value = button.dataset.aiPrompt;
-      input.focus();
+        const input =
+          document.getElementById("virus-ai-input");
+
+        if (!input) return;
+
+        input.value =
+          button.dataset.aiPrompt;
+
+        input.focus();
+      });
     });
-  });
 
-  const sendButton = document.getElementById("virus-ai-send");
+  const send =
+    document.getElementById("virus-ai-send");
 
-  if (sendButton) {
-    sendButton.addEventListener("click", sendVirusAI);
+  if (send) {
+    send.addEventListener(
+      "click",
+      sendVirusAI
+    );
+  }
+
+  const input =
+    document.getElementById("virus-ai-input");
+
+  if (input) {
+
+    input.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Enter" &&
+          !event.shiftKey
+        ) {
+
+          event.preventDefault();
+
+          sendVirusAI();
+        }
+      }
+    );
   }
 }
 
 function addAIMessage(type, text) {
-  const box = document.getElementById("virus-ai-messages");
+
+  const box =
+    document.getElementById(
+      "virus-ai-messages"
+    );
 
   if (!box) return;
 
-  const message = document.createElement("div");
+  const message =
+    document.createElement("div");
 
-  message.className = `ov-ai-message ${type}`;
+  message.className =
+    `ov-ai-message ${type}`;
 
   message.innerHTML = `
-    <strong>${type === "user" ? "You" : "Virus AI"}</strong>
-    <p>${escapeHTML(text).replace(/\n/g, "<br>")}</p>
+    <strong>
+      ${type === "user" ? "YOU" : "VIRUS AI"}
+    </strong>
+
+    <p>
+      ${escapeHTML(text).replace(
+        /\n/g,
+        "<br>"
+      )}
+    </p>
   `;
 
   box.appendChild(message);
 
-  box.scrollTop = box.scrollHeight;
+  box.scrollTop =
+    box.scrollHeight;
 }
 
 async function sendVirusAI() {
-  const input = document.getElementById("virus-ai-input");
-  const button = document.getElementById("virus-ai-send");
+
+  const input =
+    document.getElementById(
+      "virus-ai-input"
+    );
+
+  const button =
+    document.getElementById(
+      "virus-ai-send"
+    );
 
   if (!input) return;
 
-  const message = input.value.trim();
+  const message =
+    input.value.trim();
 
   if (!message) return;
 
-  addAIMessage("user", message);
+  addAIMessage(
+    "user",
+    message
+  );
 
   input.value = "";
 
@@ -257,137 +359,148 @@ async function sendVirusAI() {
   }
 
   try {
-    /*
-      لو الـbackend فيه /api/ai/chat
-      هنستخدمه تلقائياً.
-    */
 
-    const result = await apiRequest("/api/ai/chat", {
-      method: "POST",
-      body: JSON.stringify({
-        message,
-        context: {
-          app: "One Virus",
-          mode: "programming-cybersecurity"
+    const result =
+      await apiRequest(
+        "/api/ai/chat",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            message,
+
+            context: {
+              app: "One Virus",
+              mode:
+                "programming-cybersecurity"
+            }
+          })
         }
-      })
-    });
+      );
 
     addAIMessage(
       "ai",
       result.reply ||
       result.message ||
-      "لم يصل رد من Virus AI."
+      "No response received."
     );
 
   } catch {
-    /*
-      Fallback محلي لحد ما نوصل AI الحقيقي بالbackend.
-    */
 
-    const reply = localVirusAI(message);
-
-    addAIMessage("ai", reply);
+    addAIMessage(
+      "ai",
+      localVirusAI(message)
+    );
   }
 
   if (button) {
+
     button.disabled = false;
     button.textContent = "SEND";
   }
 }
 
+/* =========================================================
+   LOCAL VIRUS AI FALLBACK
+   ========================================================= */
+
 function localVirusAI(message) {
-  const text = message.toLowerCase();
+
+  const text =
+    message.toLowerCase();
 
   if (
     text.includes("python") ||
-    text.includes("بايثون")
-  ) {
-    return `
-Python لغة ممتازة للبرمجة والأتمتة وتحليل البيانات.
-
-مثال:
-
-print("Hello One Virus")
-
-ولو عندك Error ابعتهولي وأنا أشرحلك سببه وطريقة إصلاحه.
-`;
-  }
-
-  if (
     text.includes("javascript") ||
-    text.includes("جافاسكريبت")
+    text.includes("typescript") ||
+    text.includes("programming") ||
+    text.includes("code")
   ) {
+
     return `
-JavaScript هي اللغة الأساسية لتفاعل صفحات الويب.
+I can help you with programming,
+debugging, code explanation and secure coding.
 
-مثال:
-
-const name = "One Virus";
-console.log(name);
-
-ابعتلي الكود لو عايز شرح أو Debugging.
-`;
-  }
-
-  if (
-    text.includes("error") ||
-    text.includes("خطأ") ||
-    text.includes("bug")
-  ) {
-    return `
-تمام. ابعتلي:
-
-1. الكود
-2. رسالة الخطأ
-3. اللغة المستخدمة
-
-وسأحدد مكان المشكلة وأشرح طريقة إصلاحها.
-`;
-  }
-
-  if (
-    text.includes("security") ||
-    text.includes("أمان") ||
-    text.includes("cyber")
-  ) {
-    return `
-أقدر أساعدك في الأمن السيبراني الدفاعي مثل:
-
-• Secure Coding
-• تحليل Logs
-• HTTP Security Headers
-• DNS
-• Network Concepts
-• Hashing
-• Authentication
-• Vulnerability Awareness
-• Code Security Review
-
-استخدم الأدوات فقط على الأنظمة المصرح لك باختبارها.
-`;
-  }
-
-  return `
-أنا Virus AI.
-
-أقدر أساعدك في:
+Supported languages include:
 
 • Python
 • JavaScript
+• TypeScript
 • C / C++
 • Java
 • Go
 • Rust
 • PHP
+• Ruby
 • Bash
-• Web Development
-• Debugging
-• Secure Coding
-• Defensive Cybersecurity
-• Network Concepts
+• PowerShell
 
-اكتب سؤالك بالتفصيل أو الصق الكود هنا.
+Paste your code and I can analyze it.
+`;
+  }
+
+  if (
+    text.includes("error") ||
+    text.includes("bug") ||
+    text.includes("debug")
+  ) {
+
+    return `
+Let's debug the problem.
+
+Send me:
+
+1. Your code
+2. The exact error message
+3. The programming language
+
+I will explain the cause
+and suggest a fix.
+`;
+  }
+
+  if (
+    text.includes("security") ||
+    text.includes("cyber") ||
+    text.includes("secure")
+  ) {
+
+    return `
+I can help with defensive cybersecurity:
+
+• Secure Coding
+• HTTP Security Headers
+• DNS
+• Network Concepts
+• Hashing
+• Authentication
+• Log Analysis
+• Vulnerability Awareness
+• Security Code Review
+
+Only test systems you own
+or have explicit authorization to assess.
+`;
+  }
+
+  return `
+I'm Virus AI — your programming
+and defensive cybersecurity assistant.
+
+I can help with:
+
+• Programming
+• Debugging
+• Code Review
+• Secure Coding
+• Python
+• JavaScript
+• Web Development
+• Networking
+• Defensive Cybersecurity
+• Learning
+
+What would you like to work on?
 `;
 }
 
@@ -396,56 +509,126 @@ console.log(name);
    ========================================================= */
 
 function createCodeRunner() {
-  const section = document.getElementById("codelab");
+
+  const section =
+    document.getElementById("codelab");
 
   if (!section) return;
 
-  if (document.getElementById("virus-code-runner")) return;
+  if (
+    document.getElementById(
+      "virus-code-runner"
+    )
+  ) {
+    return;
+  }
 
-  const runner = document.createElement("div");
+  const runner =
+    document.createElement("div");
 
-  runner.id = "virus-code-runner";
+  runner.id =
+    "virus-code-runner";
 
   runner.innerHTML = `
+
     <div class="ov-runner">
 
       <div class="ov-runner-header">
 
         <div>
-          <strong>Code Runner</strong>
-          <span>Integrated Terminal</span>
+          <strong>
+            Code Runner
+          </strong>
+
+          <span>
+            Integrated Terminal
+          </span>
         </div>
 
         <select id="ov-language">
-          <option value="python">Python</option>
-          <option value="javascript">JavaScript</option>
-          <option value="typescript">TypeScript</option>
-          <option value="bash">Bash</option>
-          <option value="powershell">PowerShell</option>
-          <option value="c">C</option>
-          <option value="cpp">C++</option>
-          <option value="java">Java</option>
-          <option value="go">Go</option>
-          <option value="rust">Rust</option>
-          <option value="php">PHP</option>
-          <option value="ruby">Ruby</option>
+
+          <option value="python">
+            Python
+          </option>
+
+          <option value="javascript">
+            JavaScript
+          </option>
+
+          <option value="typescript">
+            TypeScript
+          </option>
+
+          <option value="bash">
+            Bash
+          </option>
+
+          <option value="powershell">
+            PowerShell
+          </option>
+
+          <option value="c">
+            C
+          </option>
+
+          <option value="cpp">
+            C++
+          </option>
+
+          <option value="java">
+            Java
+          </option>
+
+          <option value="go">
+            Go
+          </option>
+
+          <option value="rust">
+            Rust
+          </option>
+
+          <option value="php">
+            PHP
+          </option>
+
+          <option value="ruby">
+            Ruby
+          </option>
+
         </select>
 
       </div>
 
+
       <div class="ov-runner-body">
+
 
         <div class="ov-editor">
 
           <div class="ov-editor-title">
-            <span>CODE</span>
+
+            <span>
+              CODE
+            </span>
 
             <div>
-              <button id="ov-run">▶ RUN</button>
-              <button id="ov-clear">CLEAR</button>
-              <button id="ov-ai-code">☣ AI REVIEW</button>
+
+              <button id="ov-run">
+                ▶ RUN
+              </button>
+
+              <button id="ov-clear">
+                CLEAR
+              </button>
+
+              <button id="ov-ai-code">
+                ☣ AI REVIEW
+              </button>
+
             </div>
+
           </div>
+
 
           <textarea
             id="ov-code"
@@ -453,6 +636,7 @@ function createCodeRunner() {
           >print("Hello from One Virus")</textarea>
 
         </div>
+
 
         <div class="ov-terminal">
 
@@ -466,12 +650,16 @@ Ready.
 $ </pre>
 
           <div class="ov-terminal-input-row">
-            <span>$</span>
+
+            <span>
+              $
+            </span>
 
             <input
               id="ov-terminal-input"
-              placeholder="Terminal command..."
+              placeholder="Enter terminal command..."
             />
+
           </div>
 
         </div>
@@ -485,135 +673,208 @@ $ </pre>
 
   document
     .getElementById("ov-run")
-    ?.addEventListener("click", runCode);
+    ?.addEventListener(
+      "click",
+      runCode
+    );
 
   document
     .getElementById("ov-clear")
-    ?.addEventListener("click", () => {
-      const code = document.getElementById("ov-code");
+    ?.addEventListener(
+      "click",
+      () => {
 
-      if (code) {
-        code.value = "";
+        const code =
+          document.getElementById(
+            "ov-code"
+          );
+
+        if (code) {
+          code.value = "";
+        }
       }
-    });
+    );
 
   document
     .getElementById("ov-ai-code")
-    ?.addEventListener("click", () => {
-      const code = document.getElementById("ov-code");
+    ?.addEventListener(
+      "click",
+      () => {
 
-      const input = document.getElementById("virus-ai-input");
+        const code =
+          document.getElementById(
+            "ov-code"
+          );
 
-      if (!code || !input) return;
+        const input =
+          document.getElementById(
+            "virus-ai-input"
+          );
 
-      input.value =
-        "راجع الكود التالي أمنياً واشرح لي المشاكل:\n\n" +
-        code.value;
+        if (!code || !input) return;
 
-      input.focus();
+        input.value =
+          "Review the following code for security issues:\n\n" +
+          code.value;
 
-      document
-        .getElementById("virus-ai-container")
-        ?.scrollIntoView({
-          behavior: "smooth"
-        });
-    });
+        input.focus();
+
+        document
+          .getElementById(
+            "virus-ai-container"
+          )
+          ?.scrollIntoView({
+            behavior: "smooth"
+          });
+      }
+    );
 
   document
-    .getElementById("ov-terminal-input")
-    ?.addEventListener("keydown", event => {
-      if (event.key === "Enter") {
-        executeTerminalCommand();
+    .getElementById(
+      "ov-terminal-input"
+    )
+    ?.addEventListener(
+      "keydown",
+      event => {
+
+        if (event.key === "Enter") {
+          executeTerminalCommand();
+        }
       }
-    });
+    );
 }
 
+/* =========================================================
+   RUN CODE
+   ========================================================= */
+
 async function runCode() {
-  const code = document.getElementById("ov-code")?.value || "";
+
+  const code =
+    document.getElementById(
+      "ov-code"
+    )?.value || "";
+
   const language =
-    document.getElementById("ov-language")?.value || "python";
+    document.getElementById(
+      "ov-language"
+    )?.value || "python";
 
   const terminal =
-    document.getElementById("ov-terminal-output");
+    document.getElementById(
+      "ov-terminal-output"
+    );
 
   if (!terminal) return;
 
   if (!code.trim()) {
-    terminal.textContent += "\nNo code to run.\n$ ";
+
+    terminal.textContent +=
+      "\nNo code to run.\n$ ";
+
     return;
   }
 
   terminal.textContent +=
     `\n[RUNNING ${language.toUpperCase()}]\n`;
 
-  /*
-    التنفيذ الحقيقي لازم يحصل في sandbox على السيرفر.
-    لما endpoint /api/code/run يتضاف،
-    الكود هنا هيستعمله تلقائياً.
-  */
-
   try {
-    const result = await apiRequest("/api/code/run", {
-      method: "POST",
-      body: JSON.stringify({
-        language,
-        code
-      })
-    });
+
+    const result =
+      await apiRequest(
+        "/api/code/run",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            language,
+            code
+          })
+        }
+      );
 
     terminal.textContent +=
-      (result.output || result.stdout || "") +
+      (
+        result.output ||
+        result.stdout ||
+        "Execution completed."
+      ) +
       "\n$ ";
 
   } catch {
+
     terminal.textContent +=
       "\nCode execution backend is not connected yet." +
-      "\nThe runner UI is ready." +
+      "\nThe Code Runner interface is ready." +
       "\n$ ";
   }
 
-  terminal.scrollTop = terminal.scrollHeight;
+  terminal.scrollTop =
+    terminal.scrollHeight;
 }
 
+/* =========================================================
+   TERMINAL
+   ========================================================= */
+
 async function executeTerminalCommand() {
-  const input = document.getElementById("ov-terminal-input");
+
+  const input =
+    document.getElementById(
+      "ov-terminal-input"
+    );
+
   const terminal =
-    document.getElementById("ov-terminal-output");
+    document.getElementById(
+      "ov-terminal-output"
+    );
 
   if (!input || !terminal) return;
 
-  const command = input.value.trim();
+  const command =
+    input.value.trim();
 
   if (!command) return;
 
-  terminal.textContent += `\n$ ${command}`;
+  terminal.textContent +=
+    `\n$ ${command}`;
 
   input.value = "";
 
-  /*
-    Commands يتم تنفيذها على sandbox backend فقط.
-  */
-
   try {
-    const result = await apiRequest("/api/terminal", {
-      method: "POST",
-      body: JSON.stringify({
-        command
-      })
-    });
+
+    const result =
+      await apiRequest(
+        "/api/terminal",
+        {
+          method: "POST",
+
+          body: JSON.stringify({
+            command
+          })
+        }
+      );
 
     terminal.textContent +=
       "\n" +
-      (result.output || result.stdout || "Command completed.") +
+      (
+        result.output ||
+        result.stdout ||
+        "Command completed."
+      ) +
       "\n";
 
   } catch {
+
     terminal.textContent +=
       "\nTerminal backend is not connected yet.\n";
   }
 
-  terminal.textContent += "$ ";
-  terminal.scrollTop = terminal.scrollHeight;
+  terminal.textContent +=
+    "$ ";
+
+  terminal.scrollTop =
+    terminal.scrollHeight;
 }
 
 /* =========================================================
@@ -621,58 +882,109 @@ async function executeTerminalCommand() {
    ========================================================= */
 
 function createSecurityToolkit() {
-  const section = document.getElementById("tools");
+
+  const section =
+    document.getElementById(
+      "tools"
+    );
 
   if (!section) return;
 
-  if (document.getElementById("ov-toolkit")) return;
+  if (
+    document.getElementById(
+      "ov-toolkit"
+    )
+  ) {
+    return;
+  }
 
-  const toolkit = document.createElement("div");
+  const toolkit =
+    document.createElement("div");
 
-  toolkit.id = "ov-toolkit";
+  toolkit.id =
+    "ov-toolkit";
 
   toolkit.innerHTML = `
+
     <div class="ov-toolkit">
 
       <div class="ov-toolkit-header">
+
         <div>
-          <h2>Security Toolkit</h2>
-          <p>Defensive security utilities</p>
+
+          <h2>
+            Security Toolkit
+          </h2>
+
+          <p>
+            Defensive security utilities
+          </p>
+
         </div>
+
       </div>
+
 
       <div class="ov-tools-grid">
 
+
         <div class="ov-tool-card">
-          <h3>Base64</h3>
-          <textarea id="tool-base64-input"
-            placeholder="Text..."></textarea>
+
+          <h3>
+            Base64 Encoder / Decoder
+          </h3>
+
+          <textarea
+            id="tool-base64-input"
+            placeholder="Enter text..."
+          ></textarea>
 
           <div>
-            <button id="base64-encode">ENCODE</button>
-            <button id="base64-decode">DECODE</button>
+
+            <button id="base64-encode">
+              ENCODE
+            </button>
+
+            <button id="base64-decode">
+              DECODE
+            </button>
+
           </div>
 
-          <pre id="tool-base64-output"></pre>
+          <pre
+            id="tool-base64-output"
+          ></pre>
+
         </div>
 
+
         <div class="ov-tool-card">
-          <h3>Hash Generator</h3>
+
+          <h3>
+            SHA-256 Hash Generator
+          </h3>
 
           <textarea
             id="tool-hash-input"
-            placeholder="Text to hash..."
+            placeholder="Enter text..."
           ></textarea>
 
           <button id="hash-generate">
-            SHA-256
+            GENERATE HASH
           </button>
 
-          <pre id="tool-hash-output"></pre>
+          <pre
+            id="tool-hash-output"
+          ></pre>
+
         </div>
 
+
         <div class="ov-tool-card">
-          <h3>JSON Formatter</h3>
+
+          <h3>
+            JSON Formatter
+          </h3>
 
           <textarea
             id="tool-json-input"
@@ -683,11 +995,18 @@ function createSecurityToolkit() {
             FORMAT JSON
           </button>
 
-          <pre id="tool-json-output"></pre>
+          <pre
+            id="tool-json-output"
+          ></pre>
+
         </div>
 
+
         <div class="ov-tool-card">
-          <h3>URL Analyzer</h3>
+
+          <h3>
+            URL Analyzer
+          </h3>
 
           <input
             id="tool-url-input"
@@ -695,34 +1014,48 @@ function createSecurityToolkit() {
           />
 
           <button id="url-analyze">
-            ANALYZE
+            ANALYZE URL
           </button>
 
-          <pre id="tool-url-output"></pre>
+          <pre
+            id="tool-url-output"
+          ></pre>
+
         </div>
 
+
         <div class="ov-tool-card">
-          <h3>Regex Tester</h3>
+
+          <h3>
+            Regex Tester
+          </h3>
 
           <input
             id="regex-pattern"
-            placeholder="Regex pattern"
+            placeholder="Regular expression"
           />
 
           <textarea
             id="regex-text"
-            placeholder="Text..."
+            placeholder="Text to test..."
           ></textarea>
 
           <button id="regex-test">
-            TEST
+            TEST REGEX
           </button>
 
-          <pre id="regex-output"></pre>
+          <pre
+            id="regex-output"
+          ></pre>
+
         </div>
 
+
         <div class="ov-tool-card">
-          <h3>Password Generator</h3>
+
+          <h3>
+            Secure Password Generator
+          </h3>
 
           <input
             id="password-length"
@@ -736,8 +1069,12 @@ function createSecurityToolkit() {
             GENERATE
           </button>
 
-          <pre id="password-output"></pre>
+          <pre
+            id="password-output"
+          ></pre>
+
         </div>
+
 
       </div>
 
@@ -747,162 +1084,356 @@ function createSecurityToolkit() {
   section.appendChild(toolkit);
 
   document
-    .getElementById("base64-encode")
-    ?.addEventListener("click", () => {
-      const value =
-        document.getElementById("tool-base64-input").value;
-
-      document.getElementById("tool-base64-output").textContent =
-        btoa(unescape(encodeURIComponent(value)));
-    });
-
-  document
-    .getElementById("base64-decode")
-    ?.addEventListener("click", () => {
-      try {
-        const value =
-          document.getElementById("tool-base64-input").value;
-
-        document.getElementById("tool-base64-output").textContent =
-          decodeURIComponent(
-            escape(atob(value))
-          );
-      } catch {
-        document.getElementById("tool-base64-output").textContent =
-          "Invalid Base64.";
-      }
-    });
+    .getElementById(
+      "base64-encode"
+    )
+    ?.addEventListener(
+      "click",
+      encodeBase64
+    );
 
   document
-    .getElementById("hash-generate")
-    ?.addEventListener("click", generateHash);
+    .getElementById(
+      "base64-decode"
+    )
+    ?.addEventListener(
+      "click",
+      decodeBase64
+    );
 
   document
-    .getElementById("json-format")
-    ?.addEventListener("click", formatJSON);
+    .getElementById(
+      "hash-generate"
+    )
+    ?.addEventListener(
+      "click",
+      generateHash
+    );
 
   document
-    .getElementById("url-analyze")
-    ?.addEventListener("click", analyzeURL);
+    .getElementById(
+      "json-format"
+    )
+    ?.addEventListener(
+      "click",
+      formatJSON
+    );
 
   document
-    .getElementById("regex-test")
-    ?.addEventListener("click", testRegex);
+    .getElementById(
+      "url-analyze"
+    )
+    ?.addEventListener(
+      "click",
+      analyzeURL
+    );
 
   document
-    .getElementById("password-generate")
-    ?.addEventListener("click", generatePassword);
+    .getElementById(
+      "regex-test"
+    )
+    ?.addEventListener(
+      "click",
+      testRegex
+    );
+
+  document
+    .getElementById(
+      "password-generate"
+    )
+    ?.addEventListener(
+      "click",
+      generatePassword
+    );
 }
 
-async function generateHash() {
-  const value =
-    document.getElementById("tool-hash-input").value;
+/* =========================================================
+   BASE64
+   ========================================================= */
+
+function encodeBase64() {
+
+  const input =
+    document.getElementById(
+      "tool-base64-input"
+    );
 
   const output =
-    document.getElementById("tool-hash-output");
+    document.getElementById(
+      "tool-base64-output"
+    );
 
-  if (!value) {
-    output.textContent = "Enter text first.";
+  if (!input || !output) return;
+
+  try {
+
+    output.textContent =
+      btoa(
+        unescape(
+          encodeURIComponent(
+            input.value
+          )
+        )
+      );
+
+  } catch {
+
+    output.textContent =
+      "Unable to encode input.";
+  }
+}
+
+function decodeBase64() {
+
+  const input =
+    document.getElementById(
+      "tool-base64-input"
+    );
+
+  const output =
+    document.getElementById(
+      "tool-base64-output"
+    );
+
+  if (!input || !output) return;
+
+  try {
+
+    output.textContent =
+      decodeURIComponent(
+        escape(
+          atob(input.value)
+        )
+      );
+
+  } catch {
+
+    output.textContent =
+      "Invalid Base64 input.";
+  }
+}
+
+/* =========================================================
+   SHA256
+   ========================================================= */
+
+async function generateHash() {
+
+  const input =
+    document.getElementById(
+      "tool-hash-input"
+    );
+
+  const output =
+    document.getElementById(
+      "tool-hash-output"
+    );
+
+  if (!input || !output) return;
+
+  if (!input.value) {
+
+    output.textContent =
+      "Enter text first.";
+
     return;
   }
 
-  const data = new TextEncoder().encode(value);
+  const data =
+    new TextEncoder().encode(
+      input.value
+    );
 
   const hash =
-    await crypto.subtle.digest("SHA-256", data);
+    await crypto.subtle.digest(
+      "SHA-256",
+      data
+    );
 
-  const hex = [...new Uint8Array(hash)]
-    .map(byte => byte.toString(16).padStart(2, "0"))
-    .join("");
+  const hex =
+    [...new Uint8Array(hash)]
+      .map(
+        byte =>
+          byte
+            .toString(16)
+            .padStart(2, "0")
+      )
+      .join("");
 
   output.textContent = hex;
 }
 
+/* =========================================================
+   JSON
+   ========================================================= */
+
 function formatJSON() {
+
   const input =
-    document.getElementById("tool-json-input").value;
+    document.getElementById(
+      "tool-json-input"
+    );
 
   const output =
-    document.getElementById("tool-json-output");
+    document.getElementById(
+      "tool-json-output"
+    );
+
+  if (!input || !output) return;
 
   try {
-    const object = JSON.parse(input);
+
+    const object =
+      JSON.parse(input.value);
 
     output.textContent =
-      JSON.stringify(object, null, 2);
+      JSON.stringify(
+        object,
+        null,
+        2
+      );
 
   } catch (error) {
+
     output.textContent =
-      "Invalid JSON:\n" + error.message;
+      "Invalid JSON:\n" +
+      error.message;
   }
 }
 
+/* =========================================================
+   URL
+   ========================================================= */
+
 function analyzeURL() {
+
   const input =
-    document.getElementById("tool-url-input").value;
+    document.getElementById(
+      "tool-url-input"
+    );
 
   const output =
-    document.getElementById("tool-url-output");
+    document.getElementById(
+      "tool-url-output"
+    );
+
+  if (!input || !output) return;
 
   try {
-    const url = new URL(input);
+
+    const url =
+      new URL(input.value);
 
     output.textContent =
 `Protocol: ${url.protocol}
 Hostname: ${url.hostname}
-Port: ${url.port || "default"}
+Port: ${url.port || "Default"}
 Path: ${url.pathname}
-Query: ${url.search || "none"}
-Hash: ${url.hash || "none"}`;
+Query: ${url.search || "None"}
+Hash: ${url.hash || "None"}`;
 
   } catch {
-    output.textContent = "Invalid URL.";
+
+    output.textContent =
+      "Invalid URL.";
   }
 }
 
+/* =========================================================
+   REGEX
+   ========================================================= */
+
 function testRegex() {
+
   const pattern =
-    document.getElementById("regex-pattern").value;
+    document.getElementById(
+      "regex-pattern"
+    );
 
   const text =
-    document.getElementById("regex-text").value;
+    document.getElementById(
+      "regex-text"
+    );
 
   const output =
-    document.getElementById("regex-output");
+    document.getElementById(
+      "regex-output"
+    );
+
+  if (!pattern || !text || !output) {
+    return;
+  }
 
   try {
-    const regex = new RegExp(pattern, "g");
 
-    const matches = text.match(regex);
+    const regex =
+      new RegExp(
+        pattern.value,
+        "g"
+      );
+
+    const matches =
+      text.value.match(regex);
 
     output.textContent =
       matches
         ? matches.join("\n")
-        : "No matches.";
+        : "No matches found.";
+
   } catch (error) {
+
     output.textContent =
-      "Invalid Regex:\n" + error.message;
+      "Invalid Regex:\n" +
+      error.message;
   }
 }
 
+/* =========================================================
+   PASSWORD GENERATOR
+   ========================================================= */
+
 function generatePassword() {
+
   const length =
-    Number(document.getElementById("password-length").value) || 20;
+    Number(
+      document.getElementById(
+        "password-length"
+      )?.value
+    ) || 20;
+
+  const output =
+    document.getElementById(
+      "password-output"
+    );
+
+  if (!output) return;
 
   const chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=";
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+    "abcdefghijklmnopqrstuvwxyz" +
+    "0123456789" +
+    "!@#$%^&*()_+-=";
 
-  const array = new Uint32Array(length);
+  const array =
+    new Uint32Array(length);
 
   crypto.getRandomValues(array);
 
   let password = "";
 
-  for (let i = 0; i < length; i++) {
-    password += chars[array[i] % chars.length];
+  for (
+    let i = 0;
+    i < length;
+    i++
+  ) {
+
+    password +=
+      chars[
+        array[i] % chars.length
+      ];
   }
 
-  document.getElementById("password-output").textContent =
+  output.textContent =
     password;
 }
 
@@ -910,222 +1441,341 @@ function generatePassword() {
    NETWORK TOOLS
    ========================================================= */
 
-async function setupNetworkTools() {
+function setupNetworkTools() {
 
   const ipButton =
-    document.getElementById("ipAnalyzeBtn");
+    document.getElementById(
+      "ipAnalyzeBtn"
+    );
 
   if (ipButton) {
-    ipButton.addEventListener("click", async () => {
 
-      const target =
-        document.getElementById("ipTarget").value;
+    ipButton.addEventListener(
+      "click",
+      async () => {
 
-      const result =
-        document.getElementById("ipResult");
+        const target =
+          document.getElementById(
+            "ipTarget"
+          )?.value.trim();
 
-      if (!target) {
-        result.textContent = "Enter IP or domain.";
-        return;
-      }
+        const result =
+          document.getElementById(
+            "ipResult"
+          );
 
-      result.textContent = "Analyzing...";
+        if (!result) return;
 
-      try {
+        if (!target) {
 
-        const data = await apiRequest("/api/network/ip", {
-          method: "POST",
-          body: JSON.stringify({
-            target
-          })
-        });
+          result.textContent =
+            "Enter an IP address or domain.";
 
-        result.textContent =
-          JSON.stringify(data, null, 2);
-
-      } catch (error) {
+          return;
+        }
 
         result.textContent =
-          "Network backend unavailable.\n" +
-          error.message;
+          "Analyzing...";
+
+        try {
+
+          const data =
+            await apiRequest(
+              "/api/network/ip",
+              {
+                method: "POST",
+
+                body:
+                  JSON.stringify({
+                    target
+                  })
+              }
+            );
+
+          result.textContent =
+            JSON.stringify(
+              data,
+              null,
+              2
+            );
+
+        } catch (error) {
+
+          result.textContent =
+            "Network backend unavailable.\n" +
+            error.message;
+        }
       }
-    });
+    );
   }
 
   const dnsButton =
-    document.getElementById("dnsLookupBtn");
+    document.getElementById(
+      "dnsLookupBtn"
+    );
 
   if (dnsButton) {
-    dnsButton.addEventListener("click", async () => {
 
-      const target =
-        document.getElementById("dnsTarget").value;
+    dnsButton.addEventListener(
+      "click",
+      async () => {
 
-      const result =
-        document.getElementById("dnsResult");
+        const target =
+          document.getElementById(
+            "dnsTarget"
+          )?.value.trim();
 
-      if (!target) return;
+        const result =
+          document.getElementById(
+            "dnsResult"
+          );
 
-      result.textContent = "Looking up DNS...";
-
-      try {
-
-        const data =
-          await apiRequest("/api/network/dns", {
-            method: "POST",
-            body: JSON.stringify({
-              target
-            })
-          });
+        if (!result || !target) return;
 
         result.textContent =
-          JSON.stringify(data, null, 2);
+          "Looking up DNS...";
 
-      } catch (error) {
+        try {
 
-        result.textContent =
-          "DNS backend unavailable.\n" +
-          error.message;
+          const data =
+            await apiRequest(
+              "/api/network/dns",
+              {
+                method: "POST",
+
+                body:
+                  JSON.stringify({
+                    target
+                  })
+              }
+            );
+
+          result.textContent =
+            JSON.stringify(
+              data,
+              null,
+              2
+            );
+
+        } catch (error) {
+
+          result.textContent =
+            "DNS backend unavailable.\n" +
+            error.message;
+        }
       }
-    });
+    );
   }
 
   const headersButton =
-    document.getElementById("headersInspectBtn");
+    document.getElementById(
+      "headersInspectBtn"
+    );
 
   if (headersButton) {
-    headersButton.addEventListener("click", async () => {
 
-      const target =
-        document.getElementById("headersTarget").value;
+    headersButton.addEventListener(
+      "click",
+      async () => {
 
-      const result =
-        document.getElementById("headersResult");
+        const target =
+          document.getElementById(
+            "headersTarget"
+          )?.value.trim();
 
-      if (!target) return;
+        const result =
+          document.getElementById(
+            "headersResult"
+          );
 
-      result.textContent =
-        "Inspecting HTTP headers...";
-
-      try {
-
-        const data =
-          await apiRequest("/api/network/headers", {
-            method: "POST",
-            body: JSON.stringify({
-              target
-            })
-          });
+        if (!result || !target) return;
 
         result.textContent =
-          JSON.stringify(data, null, 2);
+          "Inspecting HTTP headers...";
 
-      } catch (error) {
+        try {
 
-        result.textContent =
-          "Headers backend unavailable.\n" +
-          error.message;
+          const data =
+            await apiRequest(
+              "/api/network/headers",
+              {
+                method: "POST",
+
+                body:
+                  JSON.stringify({
+                    target
+                  })
+              }
+            );
+
+          result.textContent =
+            JSON.stringify(
+              data,
+              null,
+              2
+            );
+
+        } catch (error) {
+
+          result.textContent =
+            "Headers backend unavailable.\n" +
+            error.message;
+        }
       }
-    });
+    );
   }
 }
 
 /* =========================================================
-   DEFENSIVE TOOLS
+   DEFENSE TOOLS
    ========================================================= */
 
 function setupDefenseTools() {
 
   const hashButton =
-    document.getElementById("hashAnalyzeBtn");
+    document.getElementById(
+      "hashAnalyzeBtn"
+    );
 
   if (hashButton) {
-    hashButton.addEventListener("click", async () => {
 
-      const value =
-        document.getElementById("hashInput").value;
+    hashButton.addEventListener(
+      "click",
+      async () => {
 
-      const result =
-        document.getElementById("hashResult");
+        const value =
+          document.getElementById(
+            "hashInput"
+          )?.value.trim();
 
-      if (!value) return;
+        const result =
+          document.getElementById(
+            "hashResult"
+          );
 
-      result.textContent =
-        "Analyzing hash format...";
-
-      try {
-
-        const data =
-          await apiRequest("/api/defense/hash", {
-            method: "POST",
-            body: JSON.stringify({
-              value
-            })
-          });
+        if (!result || !value) return;
 
         result.textContent =
-          JSON.stringify(data, null, 2);
+          "Analyzing hash format...";
 
-      } catch (error) {
+        try {
 
-        result.textContent =
-          "Defense backend unavailable.\n" +
-          error.message;
+          const data =
+            await apiRequest(
+              "/api/defense/hash",
+              {
+                method: "POST",
+
+                body:
+                  JSON.stringify({
+                    value
+                  })
+              }
+            );
+
+          result.textContent =
+            JSON.stringify(
+              data,
+              null,
+              2
+            );
+
+        } catch (error) {
+
+          result.textContent =
+            "Defense backend unavailable.\n" +
+            error.message;
+        }
       }
-    });
+    );
   }
 
   const logsButton =
-    document.getElementById("logsAnalyzeBtn");
+    document.getElementById(
+      "logsAnalyzeBtn"
+    );
 
   if (logsButton) {
-    logsButton.addEventListener("click", async () => {
 
-      const value =
-        document.getElementById("logsInput").value;
+    logsButton.addEventListener(
+      "click",
+      async () => {
 
-      const result =
-        document.getElementById("logsResult");
+        const value =
+          document.getElementById(
+            "logsInput"
+          )?.value;
 
-      if (!value) return;
+        const result =
+          document.getElementById(
+            "logsResult"
+          );
 
-      result.textContent =
-        "Analyzing logs...";
-
-      try {
-
-        const data =
-          await apiRequest("/api/defense/logs", {
-            method: "POST",
-            body: JSON.stringify({
-              text: value
-            })
-          });
+        if (!result || !value) return;
 
         result.textContent =
-          JSON.stringify(data, null, 2);
+          "Analyzing logs...";
 
-      } catch (error) {
+        try {
 
-        result.textContent =
-          "Log analysis backend unavailable.\n" +
-          error.message;
+          const data =
+            await apiRequest(
+              "/api/defense/logs",
+              {
+                method: "POST",
+
+                body:
+                  JSON.stringify({
+                    text: value
+                  })
+              }
+            );
+
+          result.textContent =
+            JSON.stringify(
+              data,
+              null,
+              2
+            );
+
+        } catch (error) {
+
+          result.textContent =
+            "Log analysis backend unavailable.\n" +
+            error.message;
+        }
       }
-    });
+    );
   }
 }
 
 /* =========================================================
-   SECURITY HELPERS
+   SECURITY
    ========================================================= */
 
 function escapeHTML(value) {
+
   return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 }
 
 /* =========================================================
@@ -1135,68 +1785,101 @@ function escapeHTML(value) {
 function setupMobileSidebar() {
 
   const sidebar =
-    document.querySelector(".sidebar");
+    document.querySelector(
+      ".sidebar"
+    );
 
   if (!sidebar) return;
 
   let startX = 0;
 
-  document.addEventListener("touchstart", event => {
-    startX = event.touches[0].clientX;
-  });
+  document.addEventListener(
+    "touchstart",
+    event => {
 
-  document.addEventListener("touchend", event => {
-
-    const endX = event.changedTouches[0].clientX;
-    const difference = endX - startX;
-
-    if (Math.abs(difference) < 70) return;
-
-    if (difference > 0 && startX < 80) {
-      sidebar.classList.add("open");
+      startX =
+        event.touches[0].clientX;
     }
+  );
 
-    if (difference < 0) {
-      sidebar.classList.remove("open");
+  document.addEventListener(
+    "touchend",
+    event => {
+
+      const endX =
+        event.changedTouches[0].clientX;
+
+      const distance =
+        endX - startX;
+
+      if (
+        Math.abs(distance) < 70
+      ) {
+        return;
+      }
+
+      if (
+        distance > 0 &&
+        startX < 80
+      ) {
+
+        sidebar.classList.add(
+          "open"
+        );
+      }
+
+      if (distance < 0) {
+
+        sidebar.classList.remove(
+          "open"
+        );
+      }
     }
-  });
+  );
 }
 
 /* =========================================================
-   START APPLICATION
+   START
    ========================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
 
-  createVirusAI();
+    createVirusAI();
 
-  createCodeRunner();
+    createCodeRunner();
 
-  createSecurityToolkit();
+    createSecurityToolkit();
 
-  setupNetworkTools();
+    setupNetworkTools();
 
-  setupDefenseTools();
+    setupDefenseTools();
 
-  setupMobileSidebar();
+    setupMobileSidebar();
 
-  checkBackend();
+    checkBackend();
 
-  const initial =
-    location.hash.slice(1);
+    const initial =
+      location.hash.slice(1);
 
-  if (titleMap[initial]) {
-    showSection(initial);
+    if (titleMap[initial]) {
+
+      showSection(initial);
+
+    } else {
+
+      showSection("dashboard");
+    }
+
+    console.log(
+      "%c☣ ONE VIRUS",
+      "color:#00ff9c;font-size:22px;font-weight:900"
+    );
+
+    console.log(
+      "%cVirus AI initialized",
+      "color:#00d9ff"
+    );
   }
-
-  console.log(
-    "%c☣ One Virus",
-    "color:#00ff9c;font-size:22px;font-weight:bold"
-  );
-
-  console.log(
-    "%cVirus AI initialized.",
-    "color:#00d9ff"
-  );
-
-});
+);
