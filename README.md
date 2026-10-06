@@ -1,16 +1,11 @@
 # One Virus Website
 
-Static landing page for One Virus.
+This package replaces the old static landing page with the One Virus web workspace UI.
 
-## Direct Windows download
-The Download buttons use this stable GitHub Release asset URL:
+## Upload to GitHub Pages
 
-https://github.com/onevirus00/One-Virus-App/releases/latest/download/One-Virus-Windows.zip
+Replace the existing `index.html` and `styles.css` and add `app.js` to the root of `One-Virus-Website`.
 
-**Important:** this direct link will work after you publish a Release asset with the exact filename `One-Virus-Windows.zip`.
+The UI is static and can run on GitHub Pages. Features that require a server (authentication, database, live network analysis, code execution, etc.) must later be connected to a secured backend.
 
-## Deploy
-Upload `index.html` and `styles.css` to a static host such as GitHub Pages, Netlify, Vercel, or Cloudflare Pages.
-
-Repository:
-https://github.com/onevirus00/One-Virus-App
+Use security testing features only against systems you own or are explicitly authorized to assess.

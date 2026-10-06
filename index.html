@@ -1,58 +1,121 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="One Virus — cybersecurity learning and defensive security platform.">
-<title>One Virus — Cybersecurity Platform</title>
-<link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>One Virus — Cybersecurity Workspace</title>
+  <meta name="description" content="One Virus cybersecurity learning and defensive security workspace.">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header>
-  <a class="logo" href="#home"><b>OV</b> ONE VIRUS</a>
-  <nav><a href="#features">Features</a><a href="#labs">Labs</a><a href="#download">Download</a><a href="https://github.com/onevirus00/One-Virus-App" target="_blank">GitHub</a></nav>
-</header>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">OV</span><span>ONE VIRUS</span></div>
+      <div class="user-card"><div class="avatar">OV</div><div><b>Guest User</b><small>Web Workspace</small></div></div>
+      <nav id="nav">
+        <button class="nav-item active" data-section="dashboard">⌂ <span>Dashboard</span></button>
+        <button class="nav-item" data-section="network">◎ <span>Network</span></button>
+        <button class="nav-item" data-section="bugbounty">⌁ <span>Bug Bounty</span></button>
+        <button class="nav-item" data-section="defense">◈ <span>Defense</span></button>
+        <button class="nav-item" data-section="codelab">▣ <span>Code Lab</span></button>
+        <button class="nav-item" data-section="learning">◆ <span>Learning</span></button>
+        <button class="nav-item" data-section="tools">⚙ <span>Tools</span></button>
+      </nav>
+      <div class="side-footer"><span class="status-dot"></span> System online</div>
+    </aside>
 
-<main>
-<section id="home" class="hero">
-  <small>CYBERSECURITY • LEARN • PRACTICE • DEFEND</small>
-  <h1>Build your skills.<br><em>Defend smarter.</em></h1>
-  <p>One Virus brings networking, security tools, authorized bug-bounty practice and developer labs into one focused cybersecurity workspace.</p>
-  <div class="actions">
-    <a class="btn primary" href="https://github.com/onevirus00/One-Virus-App/releases/latest/download/One-Virus-Windows.zip" target="_blank">Download v1.0.0</a>
-    <a class="btn" href="https://github.com/onevirus00/One-Virus-App" target="_blank">View on GitHub</a>
+    <main class="main">
+      <header class="topbar">
+        <div><div class="eyebrow">LEARN • PRACTICE • DEFEND</div><h1 id="page-title">Security Dashboard</h1></div>
+        <div class="top-actions"><span class="pill">WEB EDITION</span><button class="icon-btn" id="themeBtn" title="Toggle glow">◐</button></div>
+      </header>
+
+      <section id="dashboard" class="section active">
+        <div class="hero">
+          <div><span class="tag">ONE VIRUS // CYBER LAB</span><h2>Your security workspace.</h2><p>Learn networking, practice defensive techniques, analyze security data and build safer applications — from one dashboard.</p>
+            <div class="hero-actions"><button class="primary" data-go="learning">Start Learning</button><button class="secondary" data-go="tools">Explore Tools</button></div>
+          </div>
+          <div class="orb"><span>OV</span></div>
+        </div>
+        <div class="stats">
+          <div class="stat"><small>MODULES</small><b>07</b><span>Core areas</span></div>
+          <div class="stat"><small>LABS</small><b>12</b><span>Practice spaces</span></div>
+          <div class="stat"><small>TOOLS</small><b>24</b><span>Planned toolkit</span></div>
+          <div class="stat"><small>STATUS</small><b>ON</b><span>Workspace ready</span></div>
+        </div>
+        <div class="grid-2">
+          <div class="panel"><div class="panel-head"><h3>Quick access</h3><span>01</span></div>
+            <div class="quick-grid">
+              <button data-go="network"><b>Network</b><small>IP, DNS, headers & analysis</small></button>
+              <button data-go="bugbounty"><b>Bug Bounty</b><small>Authorized reconnaissance labs</small></button>
+              <button data-go="defense"><b>Defense</b><small>IOC, hashes & log analysis</small></button>
+              <button data-go="codelab"><b>Code Lab</b><small>Python, PHP & SQL practice</small></button>
+            </div>
+          </div>
+          <div class="panel"><div class="panel-head"><h3>Activity</h3><span>LIVE</span></div>
+            <div class="activity"><p><i></i> Workspace initialized</p><p><i></i> Security modules loaded</p><p><i></i> Web interface ready</p><p><i></i> Backend connection: pending</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="network" class="section">
+        <div class="section-intro"><span class="tag">NETWORK</span><h2>Network Intelligence</h2><p>Safe analysis tools for assets you own or are authorized to assess.</p></div>
+        <div class="tool-grid">
+          <div class="tool-card"><b>IP / Domain Info</b><p>Analyze an IP or domain through the connected backend.</p><input placeholder="example.com or 8.8.8.8"><button class="primary small">Analyze</button></div>
+          <div class="tool-card"><b>DNS Records</b><p>Inspect common DNS records through an authorized resolver.</p><input placeholder="domain.com"><button class="primary small">Lookup</button></div>
+          <div class="tool-card"><b>HTTP Headers</b><p>Review security-related response headers.</p><input placeholder="https://example.com"><button class="primary small">Inspect</button></div>
+        </div>
+      </section>
+
+      <section id="bugbounty" class="section">
+        <div class="section-intro"><span class="tag">BUG BOUNTY</span><h2>Authorized Security Lab</h2><p>Use only against targets where you have explicit permission.</p></div>
+        <div class="warning">⚠ Authorized targets only. This workspace is designed for learning and defensive testing.</div>
+        <div class="tool-grid">
+          <div class="tool-card"><b>Recon Checklist</b><p>Scope, DNS, assets, technologies and notes.</p><button class="secondary small">Open Lab</button></div>
+          <div class="tool-card"><b>Security Headers</b><p>Check common web security headers on an authorized URL.</p><button class="secondary small">Open Lab</button></div>
+          <div class="tool-card"><b>Finding Tracker</b><p>Record severity, evidence and remediation.</p><button class="secondary small">Open Tracker</button></div>
+        </div>
+      </section>
+
+      <section id="defense" class="section">
+        <div class="section-intro"><span class="tag">DEFENSE</span><h2>Defensive Security</h2><p>Analyze indicators and improve security posture.</p></div>
+        <div class="tool-grid">
+          <div class="tool-card"><b>Hash Analyzer</b><p>Identify and compare hashes locally or through the backend.</p><input placeholder="Paste hash"><button class="primary small">Analyze</button></div>
+          <div class="tool-card"><b>IOC Workspace</b><p>Organize indicators such as domains, IPs and file hashes.</p><button class="secondary small">Open Workspace</button></div>
+          <div class="tool-card"><b>Log Analyzer</b><p>Prepare structured security-event analysis.</p><button class="secondary small">Open Analyzer</button></div>
+        </div>
+      </section>
+
+      <section id="codelab" class="section">
+        <div class="section-intro"><span class="tag">CODE LAB</span><h2>Practice Coding</h2><p>Build security automation and learn secure programming.</p></div>
+        <div class="code-panel"><div class="tabs"><button class="tab active">Python</button><button class="tab">PHP</button><button class="tab">SQL</button></div><textarea spellcheck="false"># One Virus Code Lab
+print("Hello from One Virus")</textarea><div class="code-actions"><button class="primary small">Run in Lab</button><button class="secondary small">Save</button></div></div>
+      </section>
+
+      <section id="learning" class="section">
+        <div class="section-intro"><span class="tag">LEARNING</span><h2>Learning Paths</h2><p>Progress from fundamentals to practical defensive security.</p></div>
+        <div class="courses">
+          <div><span>01</span><b>Networking Fundamentals</b><p>IP, TCP/IP, DNS, HTTP and troubleshooting.</p><div class="progress"><i style="width:28%"></i></div></div>
+          <div><span>02</span><b>Web Security</b><p>Authentication, sessions, input validation and secure headers.</p><div class="progress"><i style="width:12%"></i></div></div>
+          <div><span>03</span><b>Defensive Security</b><p>Logs, indicators, monitoring and incident response.</p><div class="progress"><i style="width:5%"></i></div></div>
+        </div>
+      </section>
+
+      <section id="tools" class="section">
+        <div class="section-intro"><span class="tag">TOOLKIT</span><h2>Security Toolkit</h2><p>A central home for safe analysis and learning utilities.</p></div>
+        <div class="tool-list">
+          <div><b>Network Utilities</b><span>DNS • IP • HTTP</span></div>
+          <div><b>Web Defense</b><span>Headers • Cookies • TLS</span></div>
+          <div><b>Data Analysis</b><span>Hashes • IOC • Logs</span></div>
+          <div><b>Developer Lab</b><span>Python • PHP • SQL</span></div>
+          <div><b>Knowledge Base</b><span>Guides • Checklists • Notes</span></div>
+          <div><b>Admin Console</b><span>Users • Activity • Settings</span></div>
+        </div>
+      </section>
+
+      <footer>ONE VIRUS <span>•</span> Web Security Workspace <span>•</span> Authorized use only</footer>
+    </main>
   </div>
-  <div class="terminal"><div class="bar">● ● ● <span>one-virus</span></div><pre>$ one-virus --start
-[OK] Security workspace initialized
-[OK] Networking tools ready
-[OK] Learning labs ready
-[OK] Defensive workflow online</pre></div>
-</section>
-
-<section id="features">
-  <div class="title"><small>01</small><h2>Everything in one workspace</h2></div>
-  <div class="cards">
-    <article><strong>⌁</strong><h3>Networking</h3><p>Learn networking concepts and practical diagnostics for systems you own or are authorized to test.</p></article>
-    <article><strong>◈</strong><h3>Bug Bounty Labs</h3><p>Practice web-security concepts in controlled, authorized environments and learn responsible reporting.</p></article>
-    <article><strong>⌘</strong><h3>Developer Labs</h3><p>Python, PHP and SQL exercises designed around cybersecurity and secure development.</p></article>
-    <article><strong>▣</strong><h3>Security Toolkit</h3><p>Organize useful defensive and diagnostic tools in one clean workflow.</p></article>
-  </div>
-</section>
-
-<section id="labs" class="split">
-  <div>
-    <div class="title"><small>02</small><h2>Learn by doing</h2></div>
-    <p class="big">Follow learning paths, experiment in safe labs, and build repeatable defensive skills.</p>
-    <ul><li>Networking fundamentals and diagnostics</li><li>Web security and authorized bug-bounty practice</li><li>Python / PHP / SQL learning</li><li>Defensive security mindset and reporting</li></ul>
-  </div>
-  <div class="stats"><div><b>01</b><span>Desktop App</span></div><div><b>v1.0</b><span>Current Release</span></div><div><b>MIT</b><span>Open Source</span></div><div><b>24/7</b><span>Learning Access</span></div></div>
-</section>
-
-<section id="download" class="download">
-  <div><small>GET STARTED</small><h2>Download One Virus</h2><p>Get the current release from GitHub. The Windows desktop build can be published as a release asset.</p></div>
-  <div class="actions"><a class="btn primary" href="https://github.com/onevirus00/One-Virus-App/releases/latest/download/One-Virus-Windows.zip" target="_blank">Download from GitHub</a><a class="btn" href="https://github.com/onevirus00/One-Virus-App/releases" target="_blank">All Releases</a></div>
-</section>
-</main>
-
-<footer><span>© 2026 One Virus</span><span>Learn • Practice • Hack • Defend</span><a href="https://github.com/onevirus00/One-Virus-App" target="_blank">GitHub</a></footer>
-</body></html>
+  <script src="app.js"></script>
+</body>
+</html>
